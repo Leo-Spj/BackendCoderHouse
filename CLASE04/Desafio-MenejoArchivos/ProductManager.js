@@ -32,114 +32,133 @@ const producto3 = {
 
 const fs = require('fs');       // File System
 
-class ProductManager{
-    constructor(path){
+class ProductManager {
+    constructor(path) {
         this.path = path;
     }
 
-    async getProducts(){
-        try{
-            if(fs.existsSync(this.path)){
+    async getProducts() {
+        try {
+            if (fs.existsSync(this.path)) {
                 const productos = await fs.promises.readFile(this.path, 'utf-8');
                 return JSON.parse(productos);
             } else {
                 return [];
             }
 
-        } catch(error){
+        } catch (error) {
             return error;
         }
     }
 
-    checkProduct(producto){
-        if(producto.title && producto.description && producto.price && producto.thumbnail && producto.code && producto.stock){
+    checkProduct(producto) {
+        if (producto.title && producto.description && producto.price && producto.thumbnail && producto.code && producto.stock) {
             return true;
         } else {
             return false;
         }
     }
 
-    async addProduct(producto){
-        try{
-            if(this.checkProduct(producto)){
+    async addProduct(producto) {
+        try {
+            if (this.checkProduct(producto)) {
                 const productos = await this.getProducts();
 
-                if(productos.find(p => p.code === producto.code)){
+                if (productos.find(p => p.code === producto.code)) {
                     return 'Codigo existente';
                 } else {
                     let id;
-                    if(productos.length === 0){
+                    if (productos.length === 0) {
                         id = 1;
                     } else {
                         id = productos[productos.length - 1].id + 1;
                     }
 
-                    productos.push({...producto, id});
+                    productos.push({ ...producto, id });
                     const jsonProductos = JSON.stringify(productos);
                     await fs.promises.writeFile(this.path, jsonProductos, 'utf-8');
 
-                    return 'Producto agregado correctamente';   
-                }           
+                    return 'Producto agregado correctamente';
+                }
 
             } else {
                 return 'Producto invalido';
             }
 
-        } catch(error){
+        } catch (error) {
             return error;
         }
     }
 
-    async getProductById(id){
-        try{
+    async getProductById(id) {
+        try {
             const productos = await this.getProducts();
             const producto = productos.find(p => p.id === id);
 
-            if(!producto){
+            if (!producto) {
                 return 'Producto no encontrado';
             } else {
                 return producto;
             }
 
-        } catch (error){
+        } catch (error) {
             return error;
         }
     }
 
-    async updateProductById(id, producto){
-        try{
-            if(this.checkProduct(producto)){
+    async updateProductById(id, producto) {
+        try {
+            if (this.checkProduct(producto)) {
                 const productos = await this.getProducts();
                 const indice = productos.findIndex(p => p.id === id);
-                
-                if(indice === -1){
+
+                if (indice === -1) {
                     return 'Producto no encontrado';
                 } else {
-                    productos[indice] = {...producto, id};
+                    productos[indice] = { ...producto, id };
                     const jsonProductos = JSON.stringify(productos);
-                    
+
                     await fs.promises.writeFile(this.path, jsonProductos, 'utf-8');
                     return 'Producto actualizado correctamente';
                 }
             }
 
-        } catch (error){
+        } catch (error) {
             return error;
         }
     }
 
-    async deleteProductById(id){
-        try{
+    async deleteProductById(id) {
+        try {
             const productos = await this.getProducts();
             const indice = productos.findIndex(p => p.id === id);
 
-            if(indice === -1){
-                return 'Producto no encontrado';
+            if (indice === -1) {
+                return 'Producto no encontrado por su id';
             } else {
                 productos.splice(indice, 1);
                 const jsonProductos = JSON.stringify(productos);
                 await fs.promises.writeFile(this.path, jsonProductos, 'utf-8');
-                return 'Producto eliminado correctamente';
+                return 'Producto eliminado correctamente mediante su id';
+            }
+
+        } catch (error) {
+            return error;
+        }
+    }
+
+    async deleteProductByCode(code){
+        try{
+            const productos = await this.getProducts();
+            const indice = productos.findIndex(p => p.code === code);
+
+            if(indice === -1){
+                return 'Producto no encontrado por su codigo';
+            } else{
+                productos.splice(indice,1);
+                const jsonProductos = JSON.stringify(productos);
+                await fs.promises.writeFile(this.path, jsonProductos, 'utf-8');
+                return 'Producto eliminado correctamente mediante su codigo';
             }
 
         } catch (error){
@@ -149,7 +168,7 @@ class ProductManager{
 
 }
 
-async function prueba(){
+async function prueba() {
     const manager = new ProductManager('CLASE04/Desafio-MenejoArchivos/productos.json'); // creo el manager con el path del archivo
     console.log(await manager.addProduct(producto1));
     console.log(await manager.addProduct(producto2));
@@ -180,6 +199,8 @@ async function prueba(){
         code: 'A4A4'
     }
     console.log(await manager.addProduct(producto4));
+
+    console.log(await manager.deleteProductByCode('A3A3'))
 }
 
 prueba();

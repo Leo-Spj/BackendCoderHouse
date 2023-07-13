@@ -7,14 +7,5 @@
         "code": "A2A2",
         "stock": 10,
         "id": 2
-    },
-    {
-        "title": "Macbook Air M2",
-        "description": "Nuevo Macbook Air 2022",
-        "price": 1100,
-        "thumbnail": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mba15-silver-select-202306",
-        "code": "A3A3",
-        "stock": 10,
-        "id": 3
     }
 ]
