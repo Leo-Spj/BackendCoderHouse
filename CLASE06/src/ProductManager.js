@@ -69,7 +69,7 @@ class ProductManager {
             const producto = productos.find(p => p.id === id);
 
             if (!producto) {
-                return 'Producto no encontrado';
+                return;
             } else {
                 return producto;
             }
