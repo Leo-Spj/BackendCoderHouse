@@ -20,6 +20,7 @@ router.post('/',(req, res) => {
     }
 
     const newUser = {...user, id};
+    users.push(newUser);
     res.json({message: 'user added', newUser});
 }
 );

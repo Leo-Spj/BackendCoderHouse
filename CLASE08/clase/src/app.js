@@ -9,7 +9,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public')); // para servir archivos estáticos
+app.use(express.static('src/public')); // para servir archivos estáticos
 
 const PORT = 8080;
 
