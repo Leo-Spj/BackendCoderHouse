@@ -1,8 +1,9 @@
+import productRouter from './routes/products.router.js';
+import carritoRouter from './routes/cart.router.js';
+import realTimeProductsRouter from './routes/realtimeproducts.router.js';
+import homeRouter from './routes/home.router.js';
+
 import express from 'express';
-import productRoute from './routes/products.router.js';
-import carritoRoute from './routes/cart.router.js';
-import realTimeProductsRoutes from './routes/realtimeproducts.router.js';
-import homeRoutes from './routes/home.router.js';
 import { __dirname } from './utils.js';
 import { engine } from 'express-handlebars';
 import { Server } from "socket.io";
@@ -20,18 +21,18 @@ app.set('view engine', 'handlebars');
 app.set('views', __dirname + '/views');
 
 // configuracion de rutas:
-app.use('/api/products', productRoute);
-app.use('/api/carts', carritoRoute);
-app.use('/realtimeproducts', realTimeProductsRoutes);
-app.use('/', homeRoutes);
+app.use('/api/products', productRouter);
+app.use('/api/carts', carritoRouter);
+app.use('/realtimeproducts', realTimeProductsRouter);
+app.use('/', homeRouter);
 
 const PORT = 8080;
 const httpServer = app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
-const io = new Server(httpServer);
+const socketServer = new Server(httpServer);
 
-io.on('connection', (socket) => {
+socketServer.on('connection', (socket) => {
     console.log('Nueva conexion establecida!');
     socket.on('disconnect', () => {
         console.log('Usuario desconectado!');
