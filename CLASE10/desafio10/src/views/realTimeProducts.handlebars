@@ -1,1 +1,36 @@
-<h1>Real Time Products</h1>
+
+<h1 class="text-center">Real Time Products</h1>
+
+{{!-- Formulario para agregar productos --}}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Price</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody id="tabla-productos">
+                {{#each products}}
+                <tr>
+                    <td>{{this.title}}</td>
+                    <td>{{this.description}}</td>
+                    <td>{{this.price}}</td>
+                    <td>
+                        <form action="/api/products/{{this.id}}" method="delete">
+                            
+                            <input type="submit" value="Eliminar">
+                        </form>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{{!-- De la documentacion oficial de socket.io : --}}
+<script src="/socket.io/socket.io.js"></script>
