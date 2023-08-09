@@ -10,7 +10,7 @@
                     <th scope="col">Title</th>
                     <th scope="col">Description</th>
                     <th scope="col">Price</th>
-                    <th scope="col"></th>
+                    {{!-- <th scope="col"></th> --}}
                 </tr>
             </thead>
             <tbody id="tabla-productos">
@@ -19,12 +19,11 @@
                     <td>{{this.title}}</td>
                     <td>{{this.description}}</td>
                     <td>{{this.price}}</td>
-                    <td>
+                    {{!-- <td>
                         <form action="/api/products/{{this.id}}" method="delete">
-                            
                             <input type="submit" value="Eliminar">
                         </form>
-                    </td>
+                    </td> --}}
                 </tr>
                 {{/each}}
             </tbody>
