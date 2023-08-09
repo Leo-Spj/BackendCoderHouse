@@ -3,11 +3,21 @@ const socketClient = io();
 
 const formmulario = document.getElementById('form-agregar-producto');
 formmulario.addEventListener('submit', function(event) {
-    event.preventDefault(); // Esto previene el comportamiento por defecto del envío del formulario.
+    event.preventDefault();
+
     let formData = new FormData(this);
+    let object = {};
+    formData.forEach((value, key) => {
+        object[key] = value;
+    });
+    let json = JSON.stringify(object);
+
     fetch('/api/products', {
         method: 'POST',
-        body: formData
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: json
     })
     .then(response => response.json())
     .then(data => {
