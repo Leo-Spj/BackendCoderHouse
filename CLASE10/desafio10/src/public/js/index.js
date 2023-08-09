@@ -18,8 +18,3 @@ formmulario.addEventListener('submit', function(event) {
         alert('Ocurrió un error al enviar el formulario.');
     });
 });
-
-const btnPress = document.getElementById('btn-press');
-btnPress.addEventListener('click', function() {
-    alert('Boton presionado!');
-});
