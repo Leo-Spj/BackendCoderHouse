@@ -37,10 +37,9 @@ function eliminarProducto(id) {
     .then(data => {
         if (data.success) {
             alert('Producto eliminado con éxito');
-            // Aquí puedes actualizar la UI, como eliminar una fila de una tabla
+            // eliminar fila
             const fila = document.getElementById(`fila-${id}`);
             fila.remove();
-
         } else {
             alert('Error al eliminar el producto');
         }
