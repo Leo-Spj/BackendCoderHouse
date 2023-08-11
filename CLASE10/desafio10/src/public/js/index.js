@@ -1,6 +1,11 @@
 
 const socketClient = io();
 
+socketClient.on('productos', (message) => {
+    console.log(message);
+    socketClient.emit('update', `${socketClient.id} dice: Gracias!`);    
+});
+
 const formmulario = document.getElementById('form-agregar-producto');
 formmulario.addEventListener('submit', function(event) {
     event.preventDefault();
@@ -49,3 +54,4 @@ function eliminarProducto(id) {
         alert('Ocurrió un error al eliminar el producto.');
     });
 }
+

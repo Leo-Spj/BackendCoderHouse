@@ -38,4 +38,8 @@ socketServer.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('Cliente desconectado!', socket.id);
     });
+    socket.emit('productos', `Biemvenido cliente: ${socket.id}!`);
+    socket.on('update', (message) => {
+        console.log(message);
+    });
 });
