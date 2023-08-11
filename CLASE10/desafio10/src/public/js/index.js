@@ -28,3 +28,25 @@ formmulario.addEventListener('submit', function(event) {
         alert('Ocurrió un error al enviar el formulario.');
     });
 });
+
+function eliminarProducto(id) {
+    fetch(`/api/products/${id}`, {
+        method: 'DELETE'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Producto eliminado con éxito');
+            // Aquí puedes actualizar la UI, como eliminar una fila de una tabla
+            const fila = document.getElementById(`fila-${id}`);
+            fila.remove();
+
+        } else {
+            alert('Error al eliminar el producto');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Ocurrió un error al eliminar el producto.');
+    });
+}
