@@ -1,9 +1,9 @@
 
 const socketClient = io();
 
-socketClient.on('productos', (message) => {
+socketClient.on('biemvenida', (message) => {
     console.log(message);
-    socketClient.emit('update', `${socketClient.id} dice: Gracias!`);    
+    socketClient.emit('respuesta', `${socketClient.id} dice: Gracias!`);    
 });
 
 const formmulario = document.getElementById('form-agregar-producto');
