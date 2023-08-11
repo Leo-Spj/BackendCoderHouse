@@ -35,15 +35,13 @@ function eliminarProducto(id) {
     })
     .then(response => response.json())
     .then(data => {
-        if (data.success) {
-            alert('Producto eliminado con éxito');
-            // elimino de la tabla
+        if (data.error) {
+            alert(data.error);
+        } else {           
             const productRow = document.getElementById('fila-' + id);
             if (productRow) {
                 productRow.remove();
             }
-        } else {
-            alert('Error al eliminar el producto');
         }
     })
     .catch(error => {
