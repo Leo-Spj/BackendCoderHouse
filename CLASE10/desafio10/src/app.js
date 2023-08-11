@@ -34,8 +34,8 @@ const httpServer = app.listen(PORT, () => {
 const socketServer = new Server(httpServer);
 
 socketServer.on('connection', (socket) => {
-    console.log('Nueva conexion establecida!');
+    console.log('Cliente conectado!', socket.id);
     socket.on('disconnect', () => {
-        console.log('Usuario desconectado!');
+        console.log('Cliente desconectado!', socket.id);
     });
 });
