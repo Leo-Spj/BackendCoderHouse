@@ -37,9 +37,11 @@ function eliminarProducto(id) {
     .then(data => {
         if (data.success) {
             alert('Producto eliminado con éxito');
-            // eliminar fila
-            const fila = document.getElementById(`fila-${id}`);
-            fila.remove();
+            // elimino de la tabla
+            const productRow = document.getElementById('fila-' + id);
+            if (productRow) {
+                productRow.remove();
+            }
         } else {
             alert('Error al eliminar el producto');
         }
