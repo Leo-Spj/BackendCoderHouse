@@ -42,4 +42,9 @@ socketServer.on('connection', (socket) => {
     socket.on('respuesta', (message) => {
         console.log(message);
     });
+
+    socket.on('productoEliminado', (id) => {
+        socketServer.emit('productoEliminado', id);
+        console.log('productoEliminado', id);
+    });
 });

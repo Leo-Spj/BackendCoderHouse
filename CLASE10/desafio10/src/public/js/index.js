@@ -1,9 +1,18 @@
 
-const socketClient = io();
+// const socketClient = io();
 
 socketClient.on('bienvenida', (message) => {
     console.log(message);
-    socketClient.emit('respuesta', `${socketClient.id} dice: Gracias!`);    
+    socketClient.emit('respuesta', `${socketClient.id} dice: Gracias!`);
+});
+
+socketClient.on('productoEliminado', (id) => {
+    const productRow = document.getElementById('fila-' + id);
+    console.log('productoEliminado cli', id);
+    if (productRow) {
+        productRow.remove();
+        
+    }
 });
 
 const formmulario = document.getElementById('form-agregar-producto');
@@ -35,23 +44,26 @@ formmulario.addEventListener('submit', function(event) {
 });
 
 function eliminarProducto(id) {
-    fetch(`/api/products/${id}`, {
-        method: 'DELETE'
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.error) {
-            alert(data.error);
-        } else {           
+
+    // fetch(`/api/products/${id}`, {
+    //     method: 'DELETE'
+    // })
+    // .then(response => response.json())
+    // .then(data => {
+    //     if (data.error) {
+    //         alert(data.error);
+    //     } else {           
             const productRow = document.getElementById('fila-' + id);
             if (productRow) {
                 productRow.remove();
+
+                socketClient.emit('productoEliminado', id);
             }
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Ocurrió un error al eliminar el producto.');
-    });
+    //     }
+    // })
+    // .catch(error => {
+    //     console.error('Error:', error);
+    //     alert('Ocurrió un error al eliminar el producto.');
+    // });
 }
 

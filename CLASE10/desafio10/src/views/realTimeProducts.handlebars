@@ -16,7 +16,7 @@
             </thead>
             <tbody id="tabla-productos">
                 {{#each products}}
-                <tr>
+                <tr id="fila-{{this.id}}">
                     <td>{{this.stock}}</td>
                     <td><img src="{{this.thumbnail}}" alt="Imagen del producto" width="50px"></td>
                     <td>{{this.title}}</td>
@@ -31,3 +31,8 @@
 
 {{!-- De la documentacion oficial de socket.io : --}}
 <script src="/socket.io/socket.io.js"></script>
+<script>
+    const socketClient = io();
+</script>
+
+<script src="/js/index.js"></script>
