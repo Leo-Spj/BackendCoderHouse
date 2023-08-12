@@ -45,25 +45,25 @@ formmulario.addEventListener('submit', function(event) {
 
 function eliminarProducto(id) {
 
-    // fetch(`/api/products/${id}`, {
-    //     method: 'DELETE'
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //     if (data.error) {
-    //         alert(data.error);
-    //     } else {           
+    fetch(`/api/products/${id}`, {
+        method: 'DELETE'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+        } else {           
             const productRow = document.getElementById('fila-' + id);
             if (productRow) {
                 productRow.remove();
 
                 socketClient.emit('productoEliminado', id);
             }
-    //     }
-    // })
-    // .catch(error => {
-    //     console.error('Error:', error);
-    //     alert('Ocurrió un error al eliminar el producto.');
-    // });
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Ocurrió un error al eliminar el producto.');
+    });
 }
 
