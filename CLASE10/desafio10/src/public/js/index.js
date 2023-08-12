@@ -1,7 +1,7 @@
 
 const socketClient = io();
 
-socketClient.on('biemvenida', (message) => {
+socketClient.on('bienvenida', (message) => {
     console.log(message);
     socketClient.emit('respuesta', `${socketClient.id} dice: Gracias!`);    
 });

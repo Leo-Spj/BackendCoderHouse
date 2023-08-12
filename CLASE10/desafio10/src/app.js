@@ -38,7 +38,7 @@ socketServer.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('Cliente desconectado!', socket.id);
     });
-    socket.emit('biemvenida', `Biemvenido cliente: ${socket.id}!`);
+    socket.emit('bienvenida', `Bienvenido cliente: ${socket.id}!`);
     socket.on('respuesta', (message) => {
         console.log(message);
     });
