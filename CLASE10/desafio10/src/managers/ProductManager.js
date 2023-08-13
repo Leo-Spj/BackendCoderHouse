@@ -84,7 +84,8 @@ class ProductManager {
                     const jsonProductos = JSON.stringify(productos);
                     await fs.promises.writeFile(this.path, jsonProductos, 'utf-8');
 
-                    return 'Producto agregado correctamente';
+                    //retornando el producto agregado
+                    return productos[productos.length - 1];
                 }                
 
             } else {

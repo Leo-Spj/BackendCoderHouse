@@ -11,8 +11,10 @@ socketClient.on('productoEliminado', (id) => {
 });
 
 function agregarProducto(producto) {
+    let nomRow = `fila-${producto.id}`;
+
     const productRowRTC = document.createElement('tr');
-    productRowRTC.id = 'fila-' + producto.id;
+    productRowRTC.id = nomRow;
     productRowRTC.innerHTML = `
         <td>${producto.stock}</td>
         <td><img src="${producto.thumbnail}" alt="Imagen del producto" width="50px"></td>
@@ -25,7 +27,7 @@ function agregarProducto(producto) {
     }
 
     const productRow = document.createElement('tr');
-    productRow.id = 'fila-' + producto.id;
+    productRow.id = nomRow;
     productRow.innerHTML = `
         <td>${producto.stock}</td>
         <td><img src="${producto.thumbnail}" alt="Imagen del producto" width="50px"></td>
@@ -33,7 +35,7 @@ function agregarProducto(producto) {
         <td>${producto.description}</td>
         <td>${producto.price}</td>
         <td>
-            <button onclick="eliminarProducto('${this.id}')"  class="btn btn-danger">Eliminar</button>                     
+            <button onclick="eliminarProducto('${producto.id}')"  class="btn btn-danger">Eliminar</button>                     
         </td>
     `;
     if (document.getElementById('tabla-productos')){
@@ -69,7 +71,7 @@ formmulario.addEventListener('submit', function(event) {
     .then(response => response.json())
     .then(data => {
 
-        socketClient.emit('productoAgregado', object);
+        socketClient.emit('productoAgregado', data);
         this.reset();
         alert('Formulario enviado exitosamente!');
 
