@@ -34,17 +34,19 @@ const httpServer = app.listen(PORT, () => {
 const socketServer = new Server(httpServer);
 
 socketServer.on('connection', (socket) => {
-    console.log('Cliente conectado!', socket.id);
+
+  console.log('Cliente conectado!', socket.id);
     socket.on('disconnect', () => {
         console.log('Cliente desconectado!', socket.id);
-    });
-    socket.emit('bienvenida', `Bienvenido cliente: ${socket.id}!`);
-    socket.on('respuesta', (message) => {
-        console.log(message);
     });
 
     socket.on('productoEliminado', (id) => {
         socketServer.emit('productoEliminado', id);
         console.log('productoEliminado', id);
+    });
+
+    socket.on('productoAgregado', (producto) => {
+        socketServer.emit('productoAgregado', producto);
+        console.log('Servidor: roducto agregado', producto);
     });
 });

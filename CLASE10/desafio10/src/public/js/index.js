@@ -1,18 +1,49 @@
 
 // const socketClient = io();
 
-socketClient.on('bienvenida', (message) => {
-    console.log(message);
-    socketClient.emit('respuesta', `${socketClient.id} dice: Gracias!`);
-});
-
 socketClient.on('productoEliminado', (id) => {
     const productRow = document.getElementById('fila-' + id);
-    console.log('productoEliminado cli', id);
+    console.log('cliente: eliminando producto:', id);
     if (productRow) {
         productRow.remove();
         
     }
+});
+
+function agregarProducto(producto) {
+    const productRowRTC = document.createElement('tr');
+    productRowRTC.id = 'fila-' + producto.id;
+    productRowRTC.innerHTML = `
+        <td>${producto.stock}</td>
+        <td><img src="${producto.thumbnail}" alt="Imagen del producto" width="50px"></td>
+        <td>${producto.title}</td>
+        <td>${producto.description}</td>
+        <td>${producto.price}</td>
+    `;
+    if (document.getElementById('tabla-RTP')){
+        document.getElementById('tabla-RTP').appendChild(productRowRTC);
+    }
+
+    const productRow = document.createElement('tr');
+    productRow.id = 'fila-' + producto.id;
+    productRow.innerHTML = `
+        <td>${producto.stock}</td>
+        <td><img src="${producto.thumbnail}" alt="Imagen del producto" width="50px"></td>
+        <td>${producto.title}</td>
+        <td>${producto.description}</td>
+        <td>${producto.price}</td>
+        <td>
+            <button onclick="eliminarProducto('${this.id}')"  class="btn btn-danger">Eliminar</button>                     
+        </td>
+    `;
+    if (document.getElementById('tabla-productos')){
+        document.getElementById('tabla-productos').appendChild(productRow);
+    }
+}
+
+socketClient.on('productoAgregado', (producto) => {
+    console.log('productoAgregado cli');
+    agregarProducto(producto);
 });
 
 const formmulario = document.getElementById('form-agregar-producto');
@@ -26,6 +57,8 @@ formmulario.addEventListener('submit', function(event) {
     });
     let json = JSON.stringify(object);
 
+    // socketClient.emit('productoAgregado', object);  
+
     fetch('/api/products', {
         method: 'POST',
         headers: {
@@ -35,7 +68,11 @@ formmulario.addEventListener('submit', function(event) {
     })
     .then(response => response.json())
     .then(data => {
+
+        socketClient.emit('productoAgregado', object);
+        this.reset();
         alert('Formulario enviado exitosamente!');
+
     })
     .catch(error => {
         console.error('Error:', error);
