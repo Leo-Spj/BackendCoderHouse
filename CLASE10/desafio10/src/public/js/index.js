@@ -32,10 +32,10 @@ function agregarProducto(producto) {
         <td>${producto.stock}</td>
         <td><img src="${producto.thumbnail}" alt="Imagen del producto" width="50px"></td>
         <td>${producto.title}</td>
-        <td>${producto.description}</td>
+        
         <td>${producto.price}</td>
         <td>
-            <button onclick="eliminarProducto('${producto.id}')"  class="btn btn-danger">Eliminar</button>                     
+            <button onclick="eliminarProducto('${producto.id}')"  class="btn btn-danger">X</button>                     
         </td>
     `;
     if (document.getElementById('tabla-productos')){
