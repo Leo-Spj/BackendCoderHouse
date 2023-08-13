@@ -174,16 +174,5 @@
         "category": "Phones",
         "status": true,
         "id": 16
-    },
-    {
-        "title": "asd",
-        "description": "asd",
-        "price": 123,
-        "thumbnail": "",
-        "code": "qwe",
-        "stock": 12,
-        "category": "qwe",
-        "status": true,
-        "id": 17
     }
 ]
